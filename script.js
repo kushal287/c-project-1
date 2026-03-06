@@ -6,10 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let width, height;
     let particles = [];
 
-    // Load Logo Image for Canvas
-    const logoImg = new Image();
-    logoImg.src = 'logo.jpg';
-    let isLogoLoaded = false;
+    // Load Logo// Initialize logo image
+const logoImg = new Image();
+logoImg.src = 'logo_top.png';
+let isLogoLoaded = false;
     logoImg.onload = () => {
         isLogoLoaded = true;
     };
