@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Invoice Mockup</title>
+    <style>
+        :root {
+            --color-primary: #b8860b;
+            --color-bg-cream: #fff8e7;
+            --color-text-dark: #333;
+            --color-text-mid: #666;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+            font-family: var(--font-main);
+        }
+        .invoice-container {
+            width: 800px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+        .header {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: center;
+            background: white;
+            border-bottom: 2px solid var(--color-bg-cream);
+        }
+        .logo-box img {
+            height: 120px;
+        }
+        .receipt-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 30px 0;
+            color: #000;
+            letter-spacing: 2px;
+        }
+        .meta-info {
+            padding: 0 40px;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .meta-info div {
+            text-align: right;
+        }
+        .divider {
+            height: 1px;
+            background: #eee;
+            margin: 20px 40px;
+        }
+        .details-section {
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 12px;
+            border-bottom: 2px solid var(--color-bg-cream);
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+        .detail-row {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--color-text-dark);
+        }
+        .table-container {
+            padding: 0 40px;
+            margin-bottom: 40px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        thead tr {
+            background: #fcfcfc;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            font-size: 13px;
+            color: var(--color-text-mid);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .amount-col {
+            text-align: right;
+        }
+        .checkbox-section {
+            padding: 0 40px;
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .box {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--color-primary);
+            border-radius: 4px;
+        }
+        .summary-wrapper {
+            padding: 0 40px;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 60px;
+        }
+        .summary-box {
+            background: var(--color-bg-cream);
+            padding: 24px;
+            border-radius: 8px;
+            width: 280px;
+            border: 1px solid rgba(184, 134, 11, 0.2);
+        }
+        .summary-label {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: var(--color-text-mid);
+        }
+        .summary-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--color-primary);
+        }
+        .footer {
+            text-align: center;
+            padding: 40px;
+            background: #fafafa;
+            color: #999;
+            font-size: 12px;
+            line-height: 1.8;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="header">
+            <div class="logo-box">
+                <img src="logo_invoice.png" alt="JashanEdge Logo">
+            </div>
+        </div>
+
+        <div class="receipt-title">PAYMENT RECEIPT</div>
+
+        <div class="meta-info">
+            <div>
+                <strong>Receipt Date:</strong> 13/03/2026<br>
+                <strong>Day:</strong> Friday
+            </div>
+        </div>
+
+        <div class="details-section">
+            <div>
+                <div class="section-title">CUSTOMER DETAILS</div>
+                <div class="detail-row"><strong>Name:</strong> Kushal Kumar</div>
+                <div class="detail-row"><strong>Contact:</strong> +91 70191 28497</div>
+            </div>
+            <div>
+                <div class="section-title">EVENT DETAILS</div>
+                <div class="detail-row"><strong>Event Name:</strong> Grand Wedding Gala</div>
+                <div class="detail-row"><strong>Event Date:</strong> 25/11/2026</div>
+                <div class="detail-row"><strong>Event Time:</strong> 18:00 PM</div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th class="amount-col">Amount (INR)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total Contract Amount</td>
+                        <td class="amount-col">Rs. 5,00,000</td>
+                    </tr>
+                    <tr>
+                        <td>Amount Paid in this Transaction</td>
+                        <td class="amount-col">Rs. 2,50,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="checkbox-section">
+            <div class="checkbox-item">
+                <div class="box">✓</div>
+                Advance Payment
+            </div>
+            <div class="checkbox-item">
+                <div class="box"></div>
+                Final / Pending Amount
+            </div>
+        </div>
+
+        <div class="summary-wrapper">
+            <div class="summary-box">
+                <div class="summary-label">Outstanding Balance:</div>
+                <div class="summary-value">Rs. 2,50,000</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            This is a computer generated receipt and does not require a signature.<br>
+            Thank you for choosing <strong>JashanEdge</strong> – Luxury Event Planners.
+        </div>
+    </div>
+</body>
+</html>
