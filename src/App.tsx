@@ -25,7 +25,7 @@ import ManageVendors from './pages/admin/ManageVendors';
 function App() {
     return (
         <AuthProvider>
-            <BrowserRouter>
+            <BrowserRouter basename={import.meta.env.BASE_URL}>
                 <Toaster position="top-center" toastOptions={{
                     style: { background: '#1A1208', color: '#C8963E', border: '1px solid #C8963E' }
                 }} />
