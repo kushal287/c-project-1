@@ -24,8 +24,7 @@ export default function Footer() {
                             {[
                                 { label: 'About Us', href: '#how-it-works' },
                                 { label: 'Services', href: '#services' },
-                                { label: 'Venues', href: '#locations' },
-                                { label: 'Careers', href: '/contact' }
+                                { label: 'Venues', href: '#locations' }
                             ].map(link => (
                                 <li key={link.label}>
                                     {link.href.startsWith('#') ? (
@@ -88,9 +87,14 @@ export default function Footer() {
 
                 {/* Bottom Bar */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
-                    <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12, margin: 0 }}>
-                        &copy; {new Date().getFullYear()} JashanEdge. All rights reserved.
-                    </p>
+                    <div>
+                        <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12, margin: 0 }}>
+                            &copy; {new Date().getFullYear()} JashanEdge. All rights reserved.
+                        </p>
+                        <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: 10, marginTop: 4, marginBottom: 0 }}>
+                            website made by AK Devlopers Coopration Studios(AKDCS) CONTACT -7676475904
+                        </p>
+                    </div>
                     <Link to="/admin-login" style={{ color: 'rgba(255,255,255,0.2)', fontSize: 11, textDecoration: 'none' }}>
                         Admin Portal
                     </Link>
