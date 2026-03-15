@@ -37,8 +37,7 @@ export default function Navbar() {
                 borderBottom: scrolled ? '1px solid rgba(200, 150, 62, 0.15)' : 'none',
                 boxShadow: scrolled ? '0 4px 20px rgba(0,0,0,0.04)' : 'none'
             }}>
-                {/* Logo Container */}
-                <div className="logo-pill" style={{
+                <Link to="/" className="logo-pill" style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: 14,
@@ -49,7 +48,8 @@ export default function Navbar() {
                     borderRadius: scrolled ? '0' : '40px',
                     transition: 'all 0.4s ease',
                     boxShadow: scrolled ? 'none' : '0 4px 12px rgba(0,0,0,0.1)',
-                    border: scrolled ? 'none' : '1px solid rgba(255,255,255,0.3)'
+                    border: scrolled ? 'none' : '1px solid rgba(255,255,255,0.3)',
+                    textDecoration: 'none'
                 }}>
                     <img src="/images/logo.png?v=2" alt="JashanEdge Logo" style={{
                         height: scrolled ? 48 : 56,
@@ -69,7 +69,7 @@ export default function Navbar() {
                     }}>
                         JashanEdge
                     </div>
-                </div>
+                </Link>
 
                 {/* Desktop Nav */}
                 <div className="desktop-nav" style={{
@@ -160,12 +160,12 @@ export default function Navbar() {
                     flexDirection: 'column'
                 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 48 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                        <Link to="/" onClick={() => setMobileMenuOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: 16, textDecoration: 'none' }}>
                             <img src="/images/logo.png?v=2" alt="JashanEdge Logo" style={{ height: 48, width: 'auto', flexShrink: 0 }} />
                             <div style={{ fontFamily: 'var(--font-display)', fontSize: 26, fontWeight: 800, color: 'var(--color-primary)' }}>
                                 JashanEdge
                             </div>
-                        </div>
+                        </Link>
                         <button onClick={() => setMobileMenuOpen(false)} style={{ background: 'none', border: 'none' }}>
                             <X size={28} />
                         </button>

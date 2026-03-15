@@ -8,7 +8,6 @@ const NAV_ITEMS = [
     { path: '/dashboard/new-event', label: 'Start New Event', icon: PlusCircle },
     { path: '/dashboard/requests', label: 'Requests', icon: Clock },
     { path: '/dashboard/ongoing', label: 'Ongoing Events', icon: CheckCircle },
-    { path: '/dashboard/past', label: 'Past Events', icon: Archive },
     { path: '/dashboard/help', label: 'Help & Contact', icon: HelpCircle },
 ];
 
@@ -101,7 +100,7 @@ export function CustomerLayout() {
                 justifyContent: 'space-around',
                 boxShadow: '0 -2px 10px rgba(0,0,0,0.05)'
             }}>
-                {NAV_ITEMS.slice(0, 5).map(item => {
+                {NAV_ITEMS.map(item => {
                     const isActive = location.pathname === item.path;
                     return (
                         <Link key={item.path} to={item.path} style={{

@@ -9,7 +9,7 @@ const LOCATIONS = [
 
 export default function Locations() {
     return (
-        <section style={{ backgroundColor: '#FFF9F2', padding: '100px 24px', textAlign: 'center' }}>
+        <section id="locations" style={{ backgroundColor: '#FFF9F2', padding: '100px 24px', textAlign: 'center' }}>
             <div className="container">
                 <p style={{
                     fontFamily: 'var(--font-body)',

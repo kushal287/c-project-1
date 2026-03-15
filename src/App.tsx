@@ -44,7 +44,6 @@ function App() {
                             <Route path="new-event" element={<NewEventForm />} />
                             <Route path="requests" element={<Requests />} />
                             <Route path="ongoing" element={<OngoingEvents />} />
-                            <Route path="past" element={<PastEvents />} />
                             <Route path="payments" element={<PaymentHistory />} />
                             <Route path="help" element={<HelpContact />} />
                             <Route path="payment/:type/:eventId" element={<PaymentPage />} />
