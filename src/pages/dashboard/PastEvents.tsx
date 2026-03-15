@@ -1,13 +1,35 @@
 import { useState, useEffect } from 'react';
-import { Archive, Loader2 } from 'lucide-react';
+import { Archive, Loader2, Download, ExternalLink } from 'lucide-react';
 import { db } from '../../lib/firebase';
 import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestore';
 import { useAuth } from '../../contexts/AuthContext';
+import { generateInvoice } from '../../services/invoiceService';
+import toast from 'react-hot-toast';
 
 export default function PastEvents() {
     const { user } = useAuth();
     const [events, setEvents] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+
+    const handleDownloadReceipt = async (ev: any, type: 'advance' | 'final') => {
+        try {
+            await generateInvoice({
+                customerName: ev.fullName || user?.displayName || 'Customer',
+                contactNumber: ev.phone || '',
+                eventName: ev.eventName,
+                eventDate: new Date(ev.date).toLocaleDateString(),
+                eventTime: ev.time,
+                totalAmount: Number(ev.price),
+                amountPaid: Number(ev.price) / 2,
+                isAdvance: type === 'advance',
+                isFinal: type === 'final',
+                paymentDate: new Date(ev.updatedAt || ev.createdAt).toLocaleDateString('en-IN')
+            });
+            toast.success(`${type === 'advance' ? 'Advance' : 'Final'} receipt downloaded!`);
+        } catch (error) {
+            toast.error("Failed to generate receipt.");
+        }
+    };
 
     useEffect(() => {
         if (!user) return;
@@ -53,7 +75,7 @@ export default function PastEvents() {
                 <div style={{ display: 'grid', gap: 24 }}>
                     {events.map(ev => (
                         <div key={ev.id} className="card" style={{ padding: 24 }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
                                 <div>
                                     <h3 style={{ margin: 0 }}>{ev.eventName}</h3>
                                     <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
@@ -69,6 +91,43 @@ export default function PastEvents() {
                                     <div style={{ fontWeight: 600 }}>Total: ₹{Number(ev.price).toLocaleString()}</div>
                                 </div>
                             </div>
+
+                            <div style={{ background: 'var(--color-bg-cream)', padding: 16, borderRadius: 8, marginBottom: 24 }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                                    <span style={{ fontSize: 14 }}>Advance Payment (50%)</span>
+                                    <button 
+                                        onClick={() => handleDownloadReceipt(ev, 'advance')}
+                                        className="btn btn-ghost"
+                                        style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, padding: '6px 12px' }}
+                                    >
+                                        <Download size={14} /> Advance Receipt
+                                    </button>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <span style={{ fontSize: 14 }}>Final Payment (50%)</span>
+                                    <button 
+                                        onClick={() => handleDownloadReceipt(ev, 'final')}
+                                        className="btn btn-ghost"
+                                        style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, padding: '6px 12px' }}
+                                    >
+                                        <Download size={14} /> Final Receipt
+                                    </button>
+                                </div>
+                            </div>
+
+                            {ev.vendorDriveLink && (
+                                <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 20 }}>
+                                    <a 
+                                        href={ev.vendorDriveLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="btn btn-secondary"
+                                        style={{ display: 'inline-flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}
+                                    >
+                                        <ExternalLink size={18} /> View Event Assets & Photos
+                                    </a>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
