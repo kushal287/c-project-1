@@ -21,11 +21,14 @@ export default function Footer() {
                     <div>
                         <h4 style={{ color: '#fff', marginBottom: 24 }}>Quick Links</h4>
                         <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
-                            {['About Us', 'Services', 'Venues', 'Careers', 'Contact'].map(link => (
+                            {['About Us', 'Services', 'Venues', 'Careers'].map(link => (
                                 <li key={link}>
                                     <a href="#" style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14 }}>{link}</a>
                                 </li>
                             ))}
+                            <li>
+                                <Link to="/contact" style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14, textDecoration: 'none' }}>Contact</Link>
+                            </li>
                         </ul>
                     </div>
 

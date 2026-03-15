@@ -84,7 +84,7 @@ export default function Navbar() {
                     boxShadow: scrolled ? 'none' : '0 4px 12px rgba(0,0,0,0.1)',
                     border: scrolled ? 'none' : '1px solid rgba(255,255,255,0.3)'
                 }}>
-                    {['How It Works', 'Services', 'Events', 'Contact'].map(link => (
+                    {['How It Works', 'Services', 'Events'].map(link => (
                         <a key={link} className="nav-link" href={`#${link.toLowerCase().replace(/ /g, '-')}`} style={{
                             fontFamily: 'var(--font-body)',
                             fontSize: 14,
@@ -98,6 +98,18 @@ export default function Navbar() {
                             {link}
                         </a>
                     ))}
+                    <Link className="nav-link" to="/contact" style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: 14,
+                        fontWeight: 600,
+                        letterSpacing: '0.05em',
+                        color: 'var(--color-text-dark)',
+                        textDecoration: 'none',
+                        transition: 'color 0.3s ease',
+                        position: 'relative'
+                    }}>
+                        Contact
+                    </Link>
                 </div>
 
                 {/* User Actions */}
@@ -160,11 +172,14 @@ export default function Navbar() {
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 32, fontSize: 18, alignItems: 'center' }}>
-                        {['How It Works', 'Services', 'Events', 'Contact'].map(link => (
+                        {['How It Works', 'Services', 'Events'].map(link => (
                             <a key={link} href={`#${link.toLowerCase().replace(/ /g, '-')}`} onClick={() => setMobileMenuOpen(false)}>
                                 {link}
                             </a>
                         ))}
+                        <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
+                            Contact
+                        </Link>
                         {!user && (
                             <Link to="/login" className="btn btn-secondary" style={{ width: '100%', marginTop: 24 }} onClick={() => setMobileMenuOpen(false)}>Sign In</Link>
                         )}
