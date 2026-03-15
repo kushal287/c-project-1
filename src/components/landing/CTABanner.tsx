@@ -44,7 +44,7 @@ export default function CTABanner() {
                 padding: '0 24px'
             }}>
                 <h2 style={{ fontSize: 48, marginBottom: 24, color: 'var(--color-primary-dark)' }}>
-                    Ready to Create Something Beautiful?
+                    Ready to Create Something Memorable?
                 </h2>
                 <p style={{
                     fontSize: 18,
