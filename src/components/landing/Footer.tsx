@@ -30,7 +30,20 @@ export default function Footer() {
                             ].map(link => (
                                 <li key={link.label}>
                                     {link.href.startsWith('#') ? (
-                                        <a href={link.href} style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14, textDecoration: 'none' }}>{link.label}</a>
+                                        <Link 
+                                            to={`/${link.href}`} 
+                                            style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14, textDecoration: 'none' }}
+                                            onClick={() => {
+                                                if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                                                    const element = document.querySelector(link.href);
+                                                    if (element) {
+                                                        element.scrollIntoView({ behavior: 'smooth' });
+                                                    }
+                                                }
+                                            }}
+                                        >
+                                            {link.label}
+                                        </Link>
                                     ) : (
                                         <Link to={link.href} style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14, textDecoration: 'none' }}>{link.label}</Link>
                                     )}
