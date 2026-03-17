@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import { AuthProvider } from './contexts/AuthContext';
 import { CustomerLayout } from './layouts/CustomerLayout';
 import { AdminLayout } from './layouts/AdminLayout';
@@ -24,10 +25,20 @@ import PaymentPage from './pages/dashboard/PaymentPage';
 // Admin Pages
 import EventQueries from './pages/admin/EventQueries';
 import ManageVendors from './pages/admin/ManageVendors';
+
+function ScrollToTop() {
+    const { pathname } = useLocation();
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+    return null;
+}
+
 function App() {
     return (
         <AuthProvider>
             <BrowserRouter basename={import.meta.env.BASE_URL}>
+                <ScrollToTop />
                 <Toaster position="top-center" toastOptions={{
                     style: { background: '#1A1208', color: '#C8963E', border: '1px solid #C8963E' }
                 }} />
