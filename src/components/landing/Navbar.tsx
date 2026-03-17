@@ -37,20 +37,29 @@ export default function Navbar() {
                 borderBottom: scrolled ? '1px solid rgba(200, 150, 62, 0.15)' : 'none',
                 boxShadow: scrolled ? '0 4px 20px rgba(0,0,0,0.04)' : 'none'
             }}>
-                <Link to="/" className="logo-pill" style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 14,
-                    padding: scrolled ? '0' : '8px 20px',
-                    backgroundColor: scrolled ? 'transparent' : 'rgba(255, 255, 255, 0.2)',
-                    backdropFilter: scrolled ? 'none' : 'blur(8px)',
-                    WebkitBackdropFilter: scrolled ? 'none' : 'blur(8px)',
-                    borderRadius: scrolled ? '0' : '40px',
-                    transition: 'all 0.4s ease',
-                    boxShadow: scrolled ? 'none' : '0 4px 12px rgba(0,0,0,0.1)',
-                    border: scrolled ? 'none' : '1px solid rgba(255,255,255,0.3)',
-                    textDecoration: 'none'
-                }}>
+                <Link 
+                    to="/" 
+                    className="logo-pill" 
+                    onClick={() => {
+                        if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    }}
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 14,
+                        padding: scrolled ? '0' : '8px 20px',
+                        backgroundColor: scrolled ? 'transparent' : 'rgba(255, 255, 255, 0.2)',
+                        backdropFilter: scrolled ? 'none' : 'blur(8px)',
+                        WebkitBackdropFilter: scrolled ? 'none' : 'blur(8px)',
+                        borderRadius: scrolled ? '0' : '40px',
+                        transition: 'all 0.4s ease',
+                        boxShadow: scrolled ? 'none' : '0 4px 12px rgba(0,0,0,0.1)',
+                        border: scrolled ? 'none' : '1px solid rgba(255,255,255,0.3)',
+                        textDecoration: 'none'
+                    }}
+                >
                     <img src="/images/logo.png?v=2" alt="JashanEdge Logo" style={{
                         height: scrolled ? 48 : 56,
                         width: 'auto',
@@ -64,7 +73,7 @@ export default function Navbar() {
                         letterSpacing: '0.01em',
                         color: scrolled ? 'var(--color-primary)' : '#fff',
                         cursor: 'pointer',
-                        textShadow: scrolled ? 'none' : '0 2px 4px rgba(0,0,0,0.3)',
+                        textShadow: scrolled ? 'none' : '0 2px 4px rgba(0,0,0,0.2)',
                         transition: 'all 0.3s ease'
                     }}>
                         JashanEdge
@@ -84,7 +93,19 @@ export default function Navbar() {
                     boxShadow: scrolled ? 'none' : '0 4px 12px rgba(0,0,0,0.1)',
                     border: scrolled ? 'none' : '1px solid rgba(255,255,255,0.3)'
                 }}>
-                    {['How It Works', 'Services', 'Events'].map(link => (
+                    <Link className="nav-link" to="/about" style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: 14,
+                        fontWeight: 600,
+                        letterSpacing: '0.05em',
+                        color: 'var(--color-text-dark)',
+                        textDecoration: 'none',
+                        transition: 'color 0.3s ease',
+                        position: 'relative'
+                    }}>
+                        About Us
+                    </Link>
+                    {['Services', 'Events'].map(link => (
                         <a key={link} className="nav-link" href={`#${link.toLowerCase().replace(/ /g, '-')}`} style={{
                             fontFamily: 'var(--font-body)',
                             fontSize: 14,
@@ -160,7 +181,16 @@ export default function Navbar() {
                     flexDirection: 'column'
                 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 48 }}>
-                        <Link to="/" onClick={() => setMobileMenuOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: 16, textDecoration: 'none' }}>
+                        <Link 
+                            to="/" 
+                            onClick={() => {
+                                setMobileMenuOpen(false);
+                                if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                }
+                            }} 
+                            style={{ display: 'flex', alignItems: 'center', gap: 16, textDecoration: 'none' }}
+                        >
                             <img src="/images/logo.png?v=2" alt="JashanEdge Logo" style={{ height: 48, width: 'auto', flexShrink: 0 }} />
                             <div style={{ fontFamily: 'var(--font-display)', fontSize: 26, fontWeight: 800, color: 'var(--color-primary)' }}>
                                 JashanEdge
@@ -172,7 +202,10 @@ export default function Navbar() {
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 32, fontSize: 18, alignItems: 'center' }}>
-                        {['How It Works', 'Services', 'Events'].map(link => (
+                        <Link to="/about" onClick={() => setMobileMenuOpen(false)}>
+                            About Us
+                        </Link>
+                        {['Services', 'Events'].map(link => (
                             <a key={link} href={`#${link.toLowerCase().replace(/ /g, '-')}`} onClick={() => setMobileMenuOpen(false)}>
                                 {link}
                             </a>

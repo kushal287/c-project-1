@@ -8,6 +8,7 @@ import { Toaster } from 'react-hot-toast';
 import LandingPage from './pages/LandingPage';
 import AuthPage from './pages/AuthPage';
 import ContactUs from './pages/ContactUs';
+import AboutUs from './pages/AboutUs';
 import AdminLogin from './pages/AdminLogin';
 
 // Customer Pages
@@ -32,6 +33,7 @@ function App() {
                 }} />
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
+                    <Route path="/about" element={<AboutUs />} />
                     <Route path="/contact" element={<ContactUs />} />
                     <Route path="/login" element={<AuthPage mode="login" />} />
                     <Route path="/signup" element={<AuthPage mode="signup" />} />

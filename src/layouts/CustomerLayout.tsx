@@ -39,9 +39,19 @@ export function CustomerLayout() {
                 zIndex: 100
             }}>
                 <div style={{ padding: '24px', borderBottom: '1px solid var(--color-border)' }}>
-                    <h2 style={{ fontSize: 24, color: 'var(--color-primary)', margin: 0, cursor: 'pointer' }}>
-                        JashanEdge
-                    </h2>
+                    <Link 
+                        to="/" 
+                        onClick={() => {
+                            if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }
+                        }}
+                        style={{ textDecoration: 'none' }}
+                    >
+                        <h2 style={{ fontSize: 24, color: 'var(--color-primary)', margin: 0, cursor: 'pointer' }}>
+                            JashanEdge
+                        </h2>
+                    </Link>
                 </div>
 
                 <nav style={{ flex: 1, padding: '24px 0', overflowY: 'auto' }}>

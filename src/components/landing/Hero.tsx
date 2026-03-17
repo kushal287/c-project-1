@@ -73,17 +73,17 @@ export default function Hero() {
                     marginBottom: 24,
                     textShadow: '0 4px 12px rgba(0,0,0,0.3)'
                 }}>
-                    Making Every Jashan Unforgettable
+                    India's Premier Event Management & Wedding Planning
                 </h1>
 
                 <p style={{
                     fontSize: 18,
                     color: 'rgba(255,255,255,0.9)',
-                    maxWidth: 600,
+                    maxWidth: 700,
                     marginBottom: 48,
                     fontFamily: 'var(--font-body)'
                 }}>
-                    From intimate gatherings to grand weddings — we connect you with the finest vendors across India.
+                    India's leading event management specialists for <strong>weddings</strong>, <strong>birthday parties</strong>, <strong>anniversaries</strong>, and grand <strong>celebrations</strong>. We connect you with the finest wedding planners and vendors.
                 </p>
 
                 <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>

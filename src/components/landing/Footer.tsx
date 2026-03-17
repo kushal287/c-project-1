@@ -22,9 +22,11 @@ export default function Footer() {
                         <h4 style={{ color: '#fff', marginBottom: 24 }}>Quick Links</h4>
                         <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
                             {[
-                                { label: 'About Us', href: '#how-it-works' },
+                                { label: 'About Us', href: '/about' },
                                 { label: 'Services', href: '#services' },
-                                { label: 'Venues', href: '#locations' }
+                                { label: 'Venues', href: '#locations' },
+                                { label: 'Events', href: '#events' },
+                                { label: 'Portal', href: '/login' }
                             ].map(link => (
                                 <li key={link.label}>
                                     {link.href.startsWith('#') ? (

@@ -17,7 +17,10 @@ export default function Services() {
     return (
         <section id="services" className="section-padding">
             <div className="container">
-                <h2 style={{ textAlign: 'center', marginBottom: 64 }}>End-to-End Event Services</h2>
+                <h2 style={{ textAlign: 'center', marginBottom: 20 }}>Premium Wedding & Event Management</h2>
+                <p style={{ textAlign: 'center', color: 'var(--color-text-mid)', marginBottom: 64, maxWidth: 700, margin: '0 auto 64px auto' }}>
+                    Expert planning for your <strong>wedding</strong>, <strong>birthday</strong>, <strong>anniversary</strong>, or any corporate <strong>celebration</strong>. Over 100+ verified vendors managed.
+                </p>
 
                 <div style={{
                     display: 'grid',
