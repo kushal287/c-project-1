@@ -29,7 +29,17 @@ import ManageVendors from './pages/admin/ManageVendors';
 function ScrollToTop() {
     const { pathname } = useLocation();
     useEffect(() => {
-        window.scrollTo(0, 0);
+        // Force scroll to top on every path change
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'instant'
+        });
+        // Extra insurance for slower renders
+        const timeout = setTimeout(() => {
+            window.scrollTo(0, 0);
+        }, 10);
+        return () => clearTimeout(timeout);
     }, [pathname]);
     return null;
 }
