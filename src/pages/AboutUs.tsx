@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 
 const TEAM = [
     {
-        name: 'Harshit',
+        name: 'Harshit Aggarwal',
         role: 'CEO & Visionary',
-        desc: 'The strategic architect behind JashanEdge. Harshit is dedicated to redefining how India celebrates, combining traditional values with modern efficiency.',
+        desc: 'The strategic architect behind JashanEdge. Harshit Aggarwal is dedicated to redefining how India celebrates, combining traditional values with modern efficiency.',
         icon: Target,
         color: '#E6BE8A'
     },
