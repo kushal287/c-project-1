@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { auth, db } from '../lib/firebase';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import toast from 'react-hot-toast';
 
@@ -11,19 +11,51 @@ export default function AuthPage({ mode }: { mode: 'login' | 'signup' }) {
     const [fullName, setFullName] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [googleLoading, setGoogleLoading] = useState(false);
     const navigate = useNavigate();
 
+    // Handle redirect result when user comes back after Google sign-in redirect
+    useEffect(() => {
+        const handleRedirectResult = async () => {
+            try {
+                setGoogleLoading(true);
+                const result = await getRedirectResult(auth);
+                if (result) {
+                    const user = result.user;
+                    const userDoc = await getDoc(doc(db, 'users', user.uid));
+                    if (!userDoc.exists()) {
+                        await setDoc(doc(db, 'users', user.uid), {
+                            fullName: user.displayName || 'Google User',
+                            email: user.email,
+                            role: 'customer',
+                            createdAt: new Date().toISOString()
+                        });
+                    }
+                    toast.success('Signed in with Google!');
+                    navigate('/dashboard');
+                }
+            } catch (error: any) {
+                if (error.code !== 'auth/no-auth-event') {
+                    console.error(error);
+                    toast.error(error.message || 'Google Sign-In failed');
+                }
+            } finally {
+                setGoogleLoading(false);
+            }
+        };
+        handleRedirectResult();
+    }, [navigate]);
+
     const handleGoogleSignIn = async () => {
-        setLoading(true);
         const provider = new GoogleAuthProvider();
+        provider.addScope('email');
+        provider.addScope('profile');
         try {
+            // Try popup first; fall back to redirect if popup is blocked
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
-
-            // Check if user exists in Firestore
             const userDoc = await getDoc(doc(db, 'users', user.uid));
             if (!userDoc.exists()) {
-                // If new user, create record as customer
                 await setDoc(doc(db, 'users', user.uid), {
                     fullName: user.displayName || 'Google User',
                     email: user.email,
@@ -31,14 +63,29 @@ export default function AuthPage({ mode }: { mode: 'login' | 'signup' }) {
                     createdAt: new Date().toISOString()
                 });
             }
-
-            toast.success("Signed in with Google!");
+            toast.success('Signed in with Google!');
             navigate('/dashboard');
-        } catch (error: any) {
-            console.error(error);
-            toast.error(error.message || "Google Sign-In failed");
-        } finally {
-            setLoading(false);
+        } catch (popupError: any) {
+            // If popup is blocked or unavailable, fall back to redirect
+            if (
+                popupError.code === 'auth/popup-blocked' ||
+                popupError.code === 'auth/popup-closed-by-user' ||
+                popupError.code === 'auth/cancelled-popup-request'
+            ) {
+                try {
+                    const provider2 = new GoogleAuthProvider();
+                    provider2.addScope('email');
+                    provider2.addScope('profile');
+                    await signInWithRedirect(auth, provider2);
+                    // Result handled in useEffect above after redirect
+                } catch (redirectError: any) {
+                    console.error(redirectError);
+                    toast.error(redirectError.message || 'Google Sign-In failed');
+                }
+            } else {
+                console.error(popupError);
+                toast.error(popupError.message || 'Google Sign-In failed');
+            }
         }
     };
 
@@ -164,7 +211,7 @@ export default function AuthPage({ mode }: { mode: 'login' | 'signup' }) {
                             </div>
                         )}
 
-                        <button type="submit" disabled={loading} className="btn btn-primary" style={{ width: '100%', padding: '16px' }}>
+                        <button type="submit" disabled={loading || googleLoading} className="btn btn-primary" style={{ width: '100%', padding: '16px' }}>
                             {loading ? 'Processing...' : (mode === 'login' ? 'Sign In' : 'Create Account')}
                         </button>
                     </form>
@@ -177,7 +224,7 @@ export default function AuthPage({ mode }: { mode: 'login' | 'signup' }) {
 
                     <button
                         onClick={handleGoogleSignIn}
-                        disabled={loading}
+                        disabled={loading || googleLoading}
                         className="btn btn-secondary"
                         style={{ 
                             width: '100%', 
@@ -190,7 +237,7 @@ export default function AuthPage({ mode }: { mode: 'login' | 'signup' }) {
                             gap: 12
                         }}
                     >
-                        {loading ? 'Connecting...' : (
+                        {(loading || googleLoading) ? 'Connecting...' : (
                             <>
                                 <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/>
@@ -198,7 +245,7 @@ export default function AuthPage({ mode }: { mode: 'login' | 'signup' }) {
                                     <path d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.712s.102-1.173.282-1.712V4.956H.957a8.997 8.997 0 0 0 0 8.088l3.007-2.332z" fill="#FBBC05"/>
                                     <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.483 0 2.443 2.043.957 4.956l3.007 2.332C4.672 5.164 6.656 3.58 9 3.58z" fill="#EA4335"/>
                                 </svg>
-                                Google Sign-In
+                                Continue with Google
                             </>
                         )}
                     </button>
