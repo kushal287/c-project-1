@@ -22,9 +22,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-            setUser(firebaseUser);
-
             if (firebaseUser) {
+                setLoading(true); // Prevent ProtectedRoute from checking role before it's fetched
+                setUser(firebaseUser);
+                
                 // Fetch role from Firestore
                 try {
                     // Check for hardcoded admin first
@@ -42,10 +43,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                     console.error("Error fetching user role:", error);
                     setRole('customer');
                 }
+                setLoading(false);
             } else {
+                setUser(null);
                 setRole(null);
+                setLoading(false);
             }
-            setLoading(false);
         });
 
         return () => unsubscribe();

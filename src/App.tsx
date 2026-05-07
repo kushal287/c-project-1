@@ -56,8 +56,8 @@ function App() {
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/about" element={<AboutUs />} />
                     <Route path="/contact" element={<ContactUs />} />
-                    <Route path="/login" element={<AuthPage mode="login" />} />
-                    <Route path="/signup" element={<AuthPage mode="signup" />} />
+                    <Route path="/login" element={<AuthPage key="login" mode="login" />} />
+                    <Route path="/signup" element={<AuthPage key="signup" mode="signup" />} />
                     <Route path="/admin-login" element={<AdminLogin />} />
 
                     {/* Customer Protected Routes */}

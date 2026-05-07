@@ -106,8 +106,10 @@ export default function Footer() {
                         <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12, margin: 0 }}>
                             &copy; {new Date().getFullYear()} JashanEdge. All rights reserved.
                         </p>
-                        <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: 10, marginTop: 4, marginBottom: 0 }}>
-                            website made by AK Devlopers Coopration Studios(AKDCS) CONTACT -7676475904
+                        <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: 13, marginTop: 8, fontWeight: 500 }}>
+                            Website made by <span style={{ color: 'var(--color-primary)' }}>AK Devlopers Coopration Studios (AKDCS)</span>
+                            <br />
+                            <span style={{ fontSize: 11, opacity: 0.8 }}>CONTACT: 7676475904</span>
                         </p>
                     </div>
                     <Link to="/admin-login" style={{ color: 'rgba(255,255,255,0.2)', fontSize: 11, textDecoration: 'none' }}>
